@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/pavan-msys/argocd-initcontainer.git'
+    path: k8s-manifests
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      initContainers:
+        - name: init-template
+          image: busybox
+          command: ["sh", "-c", "echo Initializing... && sleep 5"]
+      containers:
+        - name: test-container
+          image: nginx
+          ports:
+            - containerPort: 80
