@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/YOUR_GITHUB_USER/argocd-initcontainer-app.git'
+    repoURL: 'https://github.com/pavan-msys/argocd-initcontainer.git'
     path: base
     targetRevision: main
   destination:
