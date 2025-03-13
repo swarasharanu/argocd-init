@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/pavan-msys/argocd-initcontainer.git'
+    repoURL: 'https://github.com/swarasharanu/argocd-init.git'
     path: k8s-manifests
     targetRevision: HEAD
   destination:
